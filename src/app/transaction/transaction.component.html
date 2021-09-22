@@ -1,0 +1,63 @@
+<div class="mx-auto" style="width: 600px;">        
+<label>Account Number : </label>
+<div class="input-group">
+<input type="text" name="customer_id" [(ngModel)]="customer_id" class="form-control">&nbsp;&nbsp;
+<input type="button" (click)="onIdSubmit()" value="fetch-details" class="btn btn-primary"> <br><br>
+</div>
+<div *ngIf = "customerfetched">
+<label>Customer Name : </label>
+<input type="text" name="name" [(ngModel)]="customerdata.name" class="form-control"><br><br>
+<label>Account Balance : </label>
+<input type="text" name="name" [(ngModel)]="customerdata.clear_balance" class="form-control"><br><br>
+
+<label>Enter Receiver Account Number : </label>
+<div class="input-group">
+<input type="text" name="name" [(ngModel)]="receiveracct_num" class="form-control">&nbsp;&nbsp;
+
+<input *ngIf = "isbank" type="button" (click)="checkBank()" value="check bank" class="btn btn-primary">
+</div>
+<div *ngIf="!isbank">
+<label>Enter Receiver Name : </label>
+<input type="text" name="name" [(ngModel)]="receiveracct_name" class="form-control"><br><br>
+
+<label>Enter Receiver BIC : </label>
+<div class="input-group">
+<input type="text" name="name" [(ngModel)]="bic" class="form-control">&nbsp;&nbsp;
+<input type="button" (click)="onBicSubmit()" value="fetch Bank details" class="btn btn-primary"> <br><br>
+</div>
+<div *ngIf = "bankfetched">
+    <label>Receiver Bank Name : </label>
+    <input type="text" name="name" [(ngModel)]="bankdata.name" class="form-control"><br><br>
+</div>
+    <label *ngIf = "bankerrorfetch" class="err">{{error.description}}</label><br><br>
+
+<label>Choose A Message Code</label>
+<select name="code"  [(ngModel)]="msg_code" class="form-control">
+  <option *ngFor = "let m of msg_array"  [value]="m.code">{{m.desc}}</option>
+</select><br><br>
+<label>Amount : </label>
+<input type="number" name="name" [(ngModel)]="amount" class="form-control"><br><br>
+<input type="button" (click)="ondoTransaction()"  value="Pay" class="btn btn-success"><br><br>
+</div>
+<div *ngIf="isreceiverbank">
+<label>Amount : </label>
+<input type="number" name="name" [(ngModel)]="amount" class="form-control"><br><br>
+<input type="button" (click)="ondoTransaction()" value="Pay" class="btn btn-success"><br><br>
+</div>
+<label *ngIf="!isreceiverbank && !isempty" class="err">Receiver Is Not Bank</label>
+</div>
+
+<div *ngIf = "transactionfetched" >
+    <div class="input-group">
+        <label>Transaction ID: </label>&nbsp;
+        <label>{{transactionobj.tid}}</label>
+    </div>
+    <div class="input-group">
+        <label>Transaction Status: </label>&nbsp;
+        <label style="color: green;">Success</label>
+    </div>
+</div>
+<label *ngIf = "transactionerrorfetch" class="err">{{error.description}}</label>
+
+<label *ngIf = "customererrorfetch" class="err">{{error.description }}</label>
+</div>
